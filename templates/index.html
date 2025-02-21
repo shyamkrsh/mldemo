@@ -19,14 +19,7 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        h2 {
-            color: #333;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+        h2 { color: #333; }
         input {
             width: 80%;
             padding: 10px;
@@ -45,27 +38,57 @@
             cursor: pointer;
             transition: background 0.3s;
         }
-        button:hover {
-            background: #0056b3;
-        }
-        h3 {
-            margin-top: 20px;
-            color: #28a745;
-        }
+        button:hover { background: #0056b3; }
+        h3 { margin-top: 20px; color: #28a745; }
     </style>
 </head>
 <body>
     <div class="container">
         <h2>House Price Prediction App</h2>
-        <form action="/predict" method="post">
-            <input type="text" name="area" placeholder="Sqft Living Area" required><br>
-            <input type="text" name="bedrooms" placeholder="Number of Bedrooms" required><br>
-            <input type="text" name="bathrooms" placeholder="Number of Bathrooms" required><br>
-            <input type="text" name="floors" placeholder="Number of Floors" required><br>
-            <input type="text" name="condition" placeholder="Condition (1-5)" required><br>
+        <form id="prediction-form">
+            <input type="text" id="area" placeholder="Sqft Living Area" required><br>
+            <input type="text" id="bedrooms" placeholder="Number of Bedrooms" required><br>
+            <input type="text" id="bathrooms" placeholder="Number of Bathrooms" required><br>
+            <input type="text" id="floors" placeholder="Number of Floors" required><br>
+            <input type="text" id="condition" placeholder="Condition (1-5)" required><br>
             <button type="submit">Predict Price</button>
-        </form>        
-        <h3>{{ prediction_text }}</h3>
+        </form>
+        <h3 id="prediction-text"></h3>
     </div>
+
+    <script>
+        document.getElementById("prediction-form").addEventListener("submit", async function(event) {
+            event.preventDefault();  // Prevent form from reloading the page
+
+            // Collect input values
+            let area = document.getElementById("area").value;
+            let bedrooms = document.getElementById("bedrooms").value;
+            let bathrooms = document.getElementById("bathrooms").value;
+            let floors = document.getElementById("floors").value;
+            let condition = document.getElementById("condition").value;
+
+            // Send data to backend using fetch API
+            let response = await fetch("https://machine-t1op.onrender.com/predict", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    area: area,
+                    bedrooms: bedrooms,
+                    bathrooms: bathrooms,
+                    floors: floors,
+                    condition: condition
+                })
+            });
+
+            let data = await response.json(); // Get JSON response
+
+            // Display result
+            if (response.ok) {
+                document.getElementById("prediction-text").innerText = `Estimated Price: $${data.prediction}`;
+            } else {
+                document.getElementById("prediction-text").innerText = `Error: ${data.error}`;
+            }
+        });
+    </script>
 </body>
 </html>
