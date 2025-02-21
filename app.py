@@ -1,9 +1,10 @@
 from flask import Flask, request, jsonify
 import joblib
 import numpy as np
+from flask_cors import CORS  # Import CORS
 
 app = Flask(__name__)
-
+CORS(app)
 # Load the trained model
 model = joblib.load("house_price_model.pkl")
 
