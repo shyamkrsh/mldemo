@@ -10,7 +10,7 @@ import joblib
 
 # Dataset लोड करें
 df = pd.read_csv("House_Price_Prediction_Dataset.csv")  
-df = df[['sqft_living', 'bedrooms', 'bathrooms', 'floors', 'condition', 'price']]  
+df = df[['area', 'bedrooms', 'bathrooms', 'floors', 'condition', 'price']]  
 
 # Convert Categorical Column
 encoder = LabelEncoder()

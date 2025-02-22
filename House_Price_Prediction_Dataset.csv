@@ -1,4 +1,4 @@
-Id,sqft_living,bedrooms,bathrooms,floors,yearbuilt,Location,condition,Garage,price
+Id,area,bedrooms,bathrooms,floors,yearbuilt,Location,condition,Garage,price
 1,1360,5,4,3,1970,Downtown,Excellent,No,149919
 2,4272,5,4,3,1958,Downtown,Excellent,No,424998
 3,3592,2,2,3,1938,Downtown,Good,No,266746

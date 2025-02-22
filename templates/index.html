@@ -81,7 +81,7 @@
             });
 
             let data = await response.json(); // Get JSON response
-
+            console.log(data)
             // Display result
             if (response.ok) {
                 document.getElementById("prediction-text").innerText = `Estimated Price: $${data.prediction}`;
